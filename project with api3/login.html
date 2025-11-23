@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام تسجيل الدخول</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* إعدادات عامة */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ac90ca 0%, #93abd3 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            direction: rtl;
+        }
+
+        /* حاوية تسجيل الدخول */
+        .login-container {
+            width: 100%;
+            max-width: 450px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        /* بطاقة تسجيل الدخول */
+        .login-card {
+            background-color: #fff;
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+            padding: 40px 35px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+        }
+
+        .login-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        /* الشعار والعنوان */
+        .logo {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .logo-icon {
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            color: white;
+            font-size: 28px;
+            box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4);
+        }
+
+        .logo h2 {
+            color: #333;
+            font-size: 28px;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+        }
+
+        .logo h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            right: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            border-radius: 2px;
+        }
+
+        /* نموذج تسجيل الدخول */
+        .login-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* مجموعة الإدخال */
+        .input-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 16px 50px 16px 16px;
+            border: 2px solid #e1e5ee;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background-color: #f8f9fa;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #6a11cb;
+            background-color: #fff;
+            box-shadow: 0 0 0 3px rgba(106, 17, 203, 0.1);
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 15px;
+            top: 42px;
+            color: #6a11cb;
+            font-size: 18px;
+        }
+
+        /* الخيارات */
+        .options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+        }
+
+        .remember-me input {
+            margin-left: 8px;
+            accent-color: #6a11cb;
+            transform: scale(1.2);
+        }
+
+        .remember-me label {
+            color: #555;
+            font-size: 15px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .forgot-password {
+            color: #6a11cb;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .forgot-password::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background: #6a11cb;
+            transition: width 0.3s ease;
+        }
+
+        .forgot-password:hover {
+            color: #2575fc;
+        }
+
+        .forgot-password:hover::after {
+            width: 100%;
+        }
+
+        /* زر تسجيل الدخول */
+        .login-btn {
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 10px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, #2575fc, #6a11cb);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(106, 17, 203, 0.5);
+        }
+
+        .login-btn:hover::before {
+            opacity: 1;
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .login-btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* رابط التسجيل */
+        .register-link {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .register-link p {
+            color: #666;
+            font-size: 15px;
+        }
+
+        .register-link a {
+            color: #6a11cb;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .register-link a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background: #6a11cb;
+            transition: width 0.3s ease;
+        }
+
+        .register-link a:hover {
+            color: #2575fc;
+        }
+
+        .register-link a:hover::after {
+            width: 100%;
+        }
+
+        /* الرسالة الترحيبية */
+        .welcome-message {
+            text-align: center;
+            margin-top: 25px;
+            padding: 15px;
+            background: linear-gradient(to right, rgba(106, 17, 203, 0.1), rgba(37, 117, 252, 0.1));
+            border-radius: 10px;
+            border-right: 4px solid #6a11cb;
+        }
+
+        .welcome-message p {
+            color: #555;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* تأثيرات الحركة */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* تصميم متجاوب */
+        @media (max-width: 480px) {
+            .login-card {
+                padding: 30px 25px;
+            }
+            
+            .options {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .forgot-password {
+                margin-top: 15px;
+            }
+            
+            .logo h2 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <h2>تسجيل الدخول</h2>
+            </div>
+            <form class="login-form">
+                <div class="input-group">
+                    <label for="email">البريد الإلكتروني</label>
+                    <input type="email" id="email" placeholder="أدخل بريدك الإلكتروني" required>
+                    <div class="input-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="password">كلمة المرور</label>
+                    <input type="password" id="password" placeholder="أدخل كلمة المرور" required>
+                    <div class="input-icon">
+                        <i class="fas fa-key"></i>
+                    </div>
+                </div>
+                <div class="options">
+                    <div class="remember-me">
+                        <input type="checkbox" id="remember">
+                        <label for="remember">تذكرني</label>
+                    </div>
+                    <a href="#" class="forgot-password">نسيت كلمة المرور؟</a>
+                </div>
+                <button type="submit" class="login-btn">
+                    <span>تسجيل الدخول</span>
+                </button>
+                <div class="register-link">
+                    <p>ليس لديك حساب؟ <a href="#">إنشاء حساب جديد</a></p>
+                </div>
+            </form>
+            <div class="welcome-message">
+                <p>مرحباً بعودتك! يرجى تسجيل الدخول للوصول إلى حسابك.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // إضافة تفاعلية بسيطة للنموذج
+        document.querySelector('.login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            if(email && password) {
+                // في التطبيق الحقيقي، هنا سيتم إرسال البيانات إلى الخادم
+                alert('تم تسجيل الدخول بنجاح!');
+            } else {
+                alert('يرجى ملء جميع الحقول المطلوبة');
+            }
+        });
+    </script>
+</body>
+</html>
