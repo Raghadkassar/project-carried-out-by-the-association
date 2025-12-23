@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,6 +11,27 @@
       padding: 0;
       background-color: #f7f9fc;
       color: #333;
+      position: relative;
+    }
+
+    /* زر الترجمة */
+    .translate-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      padding: 10px 15px;
+      background-color: #0b74de;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    
+    .translate-btn:hover {
+      background-color: #095fb9;
     }
 
     header {
@@ -19,6 +39,7 @@
       color: #fff;
       padding: 30px 20px;
       text-align: center;
+      position: relative;
     }
 
     header h1 {
@@ -58,6 +79,17 @@
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
 
+    ul {
+      line-height: 1.6;
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+      padding-left: 20px;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
+
     /* Scroll Animation */
     @keyframes fadeIn {
       0% { opacity: 0; transform: translateY(30px); }
@@ -82,72 +114,185 @@
       section p {
         font-size: 1rem;
       }
+      
+      .translate-btn {
+        top: 10px;
+        right: 10px;
+        padding: 8px 12px;
+        font-size: 0.9rem;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- زر الترجمة -->
+  <button class="translate-btn" onclick="toggleLanguage()">AR / EN</button>
+
   <header>
-    <h1> Brain Tumor Treatment & Diagnosis</h1>
+    <h1 id="page-title">Brain Tumor Treatment & Diagnosis</h1>
   </header>
 
   <!-- Section 1: Diagnosis Before CT -->
   <section id="old-diagnosis">
-    <h2>🔍 Diagnosis Before CT Scans</h2>
-    <p>
+    <h2 id="section1-title">🔍 Diagnosis Before CT Scans</h2>
+    <p id="section1-text">
       Before the invention of CT (Computed Tomography) scans, diagnosing brain tumors was extremely challenging. 
       Physicians relied on physical examinations, neurological assessments, and patient-reported symptoms such as headaches, 
       seizures, or vision problems. Imaging options were limited to X-rays and angiography, which often failed to detect 
       small or deep-seated tumors. This meant that many brain tumors were discovered only at advanced stages, making 
       treatment more difficult and less effective.
     </p>
-    <img src="https://images.unsplash.com/photo-1581093588401-7b540c7f71c3" alt="Old Brain Diagnosis">
   </section>
 
   <!-- Section 2: Modern Diagnosis with CT -->
   <section id="modern-diagnosis">
-    <h2>🖥️ Modern Diagnosis – CT & MRI</h2>
-    <p>
+    <h2 id="section2-title">🖥️ Modern Diagnosis – CT & MRI</h2>
+    <p id="section2-text">
       The introduction of CT and MRI scans revolutionized the diagnosis of brain tumors. These imaging techniques allow 
       doctors to view detailed cross-sectional images of the brain, identify tumor size, location, and characteristics quickly 
       and accurately. The process is non-invasive, fast, and widely available, making early detection easier and more reliable.
       Patients can now receive precise diagnoses without the invasive procedures required in the past.
     </p>
-    <img src="https://images.unsplash.com/photo-1581091870621-bc3c2b0a1b03" alt="Modern Brain Diagnosis">
   </section>
 
   <!-- Section 3: Treatment Options -->
   <section id="treatment-options">
-    <h2>💊 Brain Tumor Treatment Options</h2>
-    <p>
+    <h2 id="section3-title">💊 Brain Tumor Treatment Options</h2>
+    <p id="section3-text1">
       Once a brain tumor is diagnosed, several treatment options are available depending on the type, size, and location of the tumor:
     </p>
-    <ul>
-      <li>🧬 <strong>Surgery:</strong> Removal of the tumor is often the first approach if it is accessible and safe to operate on.</li>
-      <li>💉 <strong>Radiation Therapy:</strong> Uses high-energy rays to target and kill cancer cells, often used after surgery.</li>
-
-
-<li>💊 <strong>Chemotherapy:</strong> Medication that targets tumor cells, sometimes in combination with radiation therapy.</li>
-      <li>🧪 <strong>Targeted Therapy:</strong> Drugs that specifically target tumor cell mechanisms while sparing normal cells.</li>
-      <li>🩺 <strong>Immunotherapy:</strong> Boosts the immune system to fight tumor cells.</li>
-      <li>⚡ <strong>Supportive Care:</strong> Symptom management, such as controlling seizures, headaches, and swelling.</li>
+    <ul id="treatment-list">
+      <li><strong id="treatment1">Surgery:</strong> <span id="treatment1-desc">Removal of the tumor is often the first approach if it is accessible and safe to operate on.</span></li>
+      <li><strong id="treatment2">Radiation Therapy:</strong> <span id="treatment2-desc">Uses high-energy rays to target and kill cancer cells, often used after surgery.</span></li>
+      <li><strong id="treatment3">Chemotherapy:</strong> <span id="treatment3-desc">Medication that targets tumor cells, sometimes in combination with radiation therapy.</span></li>
+      <li><strong id="treatment4">Targeted Therapy:</strong> <span id="treatment4-desc">Drugs that specifically target tumor cell mechanisms while sparing normal cells.</span></li>
+      <li><strong id="treatment5">Immunotherapy:</strong> <span id="treatment5-desc">Boosts the immune system to fight tumor cells.</span></li>
+      <li><strong id="treatment6">Supportive Care:</strong> <span id="treatment6-desc">Symptom management, such as controlling seizures, headaches, and swelling.</span></li>
     </ul>
-    <p>
+    <p id="section3-text2">
       Modern treatment plans often combine several of these options to maximize effectiveness. Early diagnosis via CT or MRI 
       allows doctors to create a personalized and effective treatment plan, significantly improving patient outcomes.
     </p>
-    <img src="https://images.unsplash.com/photo-1581091215361-53b6ff7e09ef" alt="Brain Tumor Treatment">
   </section>
- <section id="references">
-  <h2>📚 References</h2>
-  <ul>
-    <li>Medulloblastoma.org – History of Imaging Brain Tumors: <a href="https://medulloblastoma.org/medullo-facts/diagnosis-of-medulloblastoma/history-of-imaging-brain-tumors/?utm_source=chatgpt.com" target="_blank">Link</a></li>
-    <li>The Journal of Neurosurgery – First Documented Brain Tumor Surgery: <a href="https://thejns.org/focus/view/journals/neurosurg-focus/18/4/foc.2005.18.4.1.pdf?utm_source=chatgpt.com" target="_blank">Link</a></li>
-    <li>Mayo Clinic – Brain Tumor Diagnosis and Treatment: <a href="https://www.mayoclinic.org/diseases-conditions/brain-tumor/diagnosis-treatment/drc-20350088?utm_source=chatgpt.com" target="_blank">Link</a></li>
-    <li>Thieme Connect – Advanced Radiation Therapy: <a href="https://www.thieme-connect.com/products/ejournals/pdf/10.1055/s-0043-119528.pdf?utm_source=chatgpt.com" target="_blank">Link</a></li>
-    <li>Brain Tumor Foundation – Treatment Options: <a href="https://braintumor.org/brain-tumors/diagnosis-treatment/diagnosis/treatment-options/?utm_source=chatgpt.com" target="_blank">Link</a></li>
-  </ul>
-</section>
 
+  <script>
+    // كائن الترجمات
+    const translations = {
+      en: {
+        title: "Brain Tumor Treatment & Diagnosis",
+        
+        section1Title: "🔍 Diagnosis Before CT Scans",
+        section1Text: "Before the invention of CT (Computed Tomography) scans, diagnosing brain tumors was extremely challenging. Physicians relied on physical examinations, neurological assessments, and patient-reported symptoms such as headaches, seizures, or vision problems. Imaging options were limited to X-rays and angiography, which often failed to detect small or deep-seated tumors. This meant that many brain tumors were discovered only at advanced stages, making treatment more difficult and less effective.",
+        
+        section2Title: "🖥️ Modern Diagnosis – CT & MRI",
+        section2Text: "The introduction of CT and MRI scans revolutionized the diagnosis of brain tumors. These imaging techniques allow doctors to view detailed cross-sectional images of the brain, identify tumor size, location, and characteristics quickly and accurately. The process is non-invasive, fast, and widely available, making early detection easier and more reliable. Patients can now receive precise diagnoses without the invasive procedures required in the past.",
+        
+        section3Title: "💊 Brain Tumor Treatment Options",
+        section3Text1: "Once a brain tumor is diagnosed, several treatment options are available depending on the type, size, and location of the tumor:",
+        section3Text2: "Modern treatment plans often combine several of these options to maximize effectiveness. Early diagnosis via CT or MRI allows doctors to create a personalized and effective treatment plan, significantly improving patient outcomes.",
+        
+        treatments: [
+          { name: "Surgery:", desc: "Removal of the tumor is often the first approach if it is accessible and safe to operate on." },
+          { name: "Radiation Therapy:", desc: "Uses high-energy rays to target and kill cancer cells, often used after surgery." },
+          { name: "Chemotherapy:", desc: "Medication that targets tumor cells, sometimes in combination with radiation therapy." },
+          { name: "Targeted Therapy:", desc: "Drugs that specifically target tumor cell mechanisms while sparing normal cells." },
+          { name: "Immunotherapy:", desc: "Boosts the immune system to fight tumor cells." },
+          { name: "Supportive Care:", desc: "Symptom management, such as controlling seizures, headaches, and swelling." }
+        ],
+        
+        translateBtn: "AR / العربية"
+      },
+      
+      ar: {
+        title: "تشخيص وعلاج أورام الدماغ",
+        
+        section1Title: "🔍 التشخيص قبل التصوير المقطعي",
+        section1Text: "قبل اختراع التصوير المقطعي المحوسب، كان تشخيص أورام الدماغ يمثل تحدياً كبيراً. اعتمد الأطباء على الفحوصات الجسدية، والتقييمات العصبية، والأعراض التي يبلغ عنها المرضى مثل الصداع، والنوبات، أو مشاكل الرؤية. كانت خيارات التصوير محدودة بالأشعة السينية وتصوير الأوعية، والتي غالباً ما فشلت في اكتشاف الأورام الصغيرة أو العميقة. هذا يعني أنه تم اكتشاف العديد من أورام الدماغ فقط في مراحل متقدمة، مما جعل العلاج أكثر صعوبة وأقل فعالية.",
+        
+        section2Title: "🖥️ التشخيص الحديث – التصوير المقطعي والرنين المغناطيسي",
+        section2Text: "أحدث إدخال التصوير المقطعي والرنين المغناطيسي ثورة في تشخيص أورام الدماغ. تسمح تقنيات التصوير هذه للأطباء بمشاهدة صور مقطعية مفصلة للدماغ، وتحديد حجم الورم وموقعه وخصائصه بسرعة ودقة. العملية غير جراحية، وسريعة، ومتاحة على نطاق واسع، مما يجعل الاكتشاف المبكر أسهل وأكثر موثوقية. يمكن للمرضى الآن الحصول على تشخيصات دقيقة دون الإجراءات الغازية المطلوبة في الماضي.",
+        
+        section3Title: "💊 خيارات علاج أورام الدماغ",
+        section3Text1: "بمجرد تشخيص ورم الدماغ، تتوفر عدة خيارات علاجية اعتماداً على نوع الورم وحجمه وموقعه:",
+        section3Text2: "غالباً ما تجمع خطط العلاج الحديثة بين عدة من هذه الخيارات لتعظيم الفعالية. يسمح التشخيص المبكر عبر التصوير المقطعي أو الرنين المغناطيسي للأطباء بوضع خطة علاجية شخصية وفعالة، مما يحسن بشكل كبير نتائج المرضى.",
+        
+        treatments: [
+          { name: "الجراحة:", desc: "غالباً ما يكون استئصال الورم هو النهج الأول إذا كان الوصول إليه آمناً وآمناً للعمل عليه." },
+          { name: "العلاج الإشعاعي:", desc: "يستخدم أشعة عالية الطاقة لاستهداف الخلايا السرطانية وقتلها، وغالباً ما يستخدم بعد الجراحة." },
+          { name: "العلاج الكيميائي:", desc: "أدوية تستهدف الخلايا السرطانية، وأحياناً بالاشتراك مع العلاج الإشعاعي." },
+          { name: "العلاج الموجه:", desc: "أدوية تستهدف آليات الخلايا السرطانية على وجه التحديد مع تجنيب الخلايا الطبيعية." },
+          { name: "العلاج المناعي:", desc: "يعزز الجهاز المناعي لمحاربة الخلايا السرطانية." },
+          { name: "الرعاية الداعمة:", desc: "إدارة الأعراض، مثل السيطرة على النوبات والصداع والتورم." }
+        ],
+        
+        translateBtn: "EN / English"
+      }
+    };
 
+    // الحالة الحالية للغة
+    let currentLang = 'en';
+
+    // دالة لتطبيق الترجمة
+    function applyTranslation(lang) {
+      const trans = translations[lang];
+      
+      // تحديث العنوان
+      document.getElementById('page-title').textContent = trans.title;
+      
+      // تحديث النصوص
+      document.getElementById('section1-title').textContent = trans.section1Title;
+      document.getElementById('section1-text').textContent = trans.section1Text;
+      
+      document.getElementById('section2-title').textContent = trans.section2Title;
+      document.getElementById('section2-text').textContent = trans.section2Text;
+      
+      document.getElementById('section3-title').textContent = trans.section3Title;
+      document.getElementById('section3-text1').textContent = trans.section3Text1;
+      document.getElementById('section3-text2').textContent = trans.section3Text2;
+      
+      // تحديث قائمة العلاجات
+      for (let i = 0; i < trans.treatments.length; i++) {
+        document.getElementById(`treatment${i+1}`).textContent = trans.treatments[i].name;
+        document.getElementById(`treatment${i+1}-desc`).textContent = trans.treatments[i].desc;
+      }
+      
+      // تحديث اتجاه الصفحة
+      document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+      document.documentElement.lang = lang;
+      
+      // تحديث زر الترجمة
+      document.querySelector('.translate-btn').textContent = trans.translateBtn;
+      
+      // تحديث عنوان الصفحة
+      document.title = trans.title;
+      
+      // حفظ اللغة في التخزين المحلي
+      localStorage.setItem('treatmentLang', lang);
+    }
+
+    // دالة لتبديل اللغة
+    function toggleLanguage() {
+      currentLang = currentLang === 'en' ? 'ar' : 'en';
+      applyTranslation(currentLang);
+    }
+
+    // تهيئة اللغة عند تحميل الصفحة
+    document.addEventListener('DOMContentLoaded', function() {
+      // محاولة استعادة اللغة المحفوظة
+      const savedLang = localStorage.getItem('treatmentLang');
+      if (savedLang) {
+        currentLang = savedLang;
+      } else {
+        // اكتشاف لغة المتصفح
+        const browserLang = navigator.language || navigator.userLanguage;
+        if (browserLang.startsWith('ar')) {
+          currentLang = 'ar';
+        }
+      }
+      
+      // تطبيق اللغة
+      applyTranslation(currentLang);
+    });
+  </script>
 </body>
 </html>

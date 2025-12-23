@@ -6,10 +6,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Virtual Doctor</title>
   <link rel="stylesheet" href="api.css">
-
+  <style>
+    /* إضافة تنسيق خاص لزر الترجمة فقط */
+    .translate-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      padding: 10px 15px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+    
+    .translate-btn:hover {
+      background-color: #45a049;
+    }
+    
+    /* إلغاء التنسيقات الافتراضية للأزرار المكررة إذا وجدت */
+    footer .translate-btn {
+      display: none;
+    }
+  </style>
 </head>
 
 <body>
+ 
 
   <!-- Navbar -->
   <header>
@@ -17,20 +43,19 @@
       <img src="./images/photo_2025-10-22_19-20-56 (1).png" alt="logo">
       <nav>
         <ul>
-
-          <li><a href="./about.html">Personal experiences</a></li>
-          <li><a href="./treatment.html">Treatment</a></li>
-          <li><a href="./interpretation.html">Interpretation</a></li>
-          <li><a href="./login.html">Log in</a></li>
+          <li><a href="./about.html" id="nav-experience">Personal experiences</a></li>
+          <li><a href="./treatment.html" id="nav-treatment">Treatment</a></li>
+          <li><a href="./login.html" id="nav-login">Log in</a></li>
+          <li><a href="./signin.html" id="nav-login">sign in</a></li>
         </ul>
       </nav>
     </div>
 
     <!-- Hero Section -->
     <div class="hero-content">
-      <h1>WELCOME TO <span class="primary-text">VIRTUAL</span> DOCTOR</h1>
-      <p>Your health, our priority</p>
-      <a href="#about" class="btn btn-primary">Get Started</a>
+      <h1 id="hero-title">WELCOME TO <span class="primary-text" id="hero-title-span">VIRTUAL</span> DOCTOR</h1>
+      <p id="hero-subtitle">Your health, our priority</p>
+      <a href="./interpretation.html" class="btn btn-primary" id="hero-btn">Interpretation</a>
     </div>
   </header>
 
@@ -39,17 +64,16 @@
     <section id="about" class="fade-slide">
       <div class="container">
         <div class="title">
-          <h2>For You</h2>
-          <p>Ensuring your safety through intelligent medical analysis</p>
+          <h2 id="section1-title">For You</h2>
+          <p id="section1-subtitle">Ensuring your safety through intelligent medical analysis</p>
         </div>
         <div class="about-content">
           <div class="text">
-            <p>🧠 Introduction</p>
-            <p>
+            <p id="intro-title">🧠 Introduction</p>
+            <p id="intro-text">
               Our AI platform analyzes brain MRI scans with precision, helping detect potential tumors early. We focus
               on safety, privacy, and accuracy, providing reliable insights for professionals and patients.
             </p>
-
           </div>
           <div class="image">
             <img src="./images/photo_2025-10-23_16-54-53.jpg" alt="Introduction">
@@ -58,129 +82,99 @@
       </div>
     </section>
 
-    <!--   DEFINITION Section -->
+    <!-- DEFINITION Section -->
     <section id="about" class="fade-slide">
       <div class="container">
         <div class="title">
-          <h2>DEFINITION</h2>
-          <p>Brain CT scan </p>
+          <h2 id="section2-title">DEFINITION</h2>
+          <p id="section2-subtitle">Brain CT scan</p>
         </div>
         <div class="about-content">
           <div class="text">
-
-            <p>
+            <p id="definition-text">
               A brain CT scan (Computed Tomography) is a medical imaging test that uses X-rays and computer technology
               to create detailed and precise images of the brain. It is commonly performed to detect brain injuries,
               bleeding, tumors, or strokes. During the procedure, the patient lies on a table that slides into a
               circular machine which rotates around the head to capture images from different angles. Sometimes, a
               contrast dye is injected to highlight blood vessels or specific structures. The scan usually takes about
               5–10 minutes and is painless. Afterward, patients can resume normal activities immediately. It provides
-              fast and accurate results, though it involves a small amount of radiation. It is considered one of the
-              most essential emergency tests for evaluating critical brain conditions.
+              fast and accurate results, though it involves a small amount of radiation.
             </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!--  importance  Section -->
+    <!-- importance Section -->
     <section id="about" class="fade-slide">
       <div class="container">
         <div class="title">
-
-          <h2>What is the importance of a CT scan?</h2>
-
+          <h2 id="section3-title">What is the importance of a CT scan?</h2>
         </div>
         <div class="about-content">
           <div class="text">
-            <p>A CT scan is important because it allows doctors to quickly identify serious brain problems such as
-              bleeding, trauma, or tumors, helping them make immediate and life-saving decisions.</p>
-
+            <p id="importance-text">
+              A CT scan is important because it allows doctors to quickly identify serious brain problems such as
+              bleeding, trauma, or tumors, helping them make immediate and life-saving decisions.
+            </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!--   areas Section -->
+    <!-- زر الترجمة المضاف -->
+    <button class="translate-btn" id="translateBtn">AR / EN</button>
+
+    <!-- areas Section -->
     <section id="about" class="fade-slide">
       <div class="container">
         <div class="title">
-
-          <h2>What is the importance of a CT scan?</h2>
-
+          <h2 id="section4-title">Areas of Expertise in CT Scanning</h2>
         </div>
         <div class="about-content">
           <div class="text">
-            <p>Areas of Expertise in CT Scanning
-
-            <p>CT scanning covers several key areas of medical imaging. These include:</p>
-
-            <p>1. Brain CT – used to detect bleeding, tumors, or stroke.</p>
-
-
-            <p>2. Chest CT – helps diagnose lung diseases, infections, or cancers.</p>
-
-
-            <p>3. Abdominal and Pelvic CT – used to examine organs like the liver, kidneys, and intestines.</p>
-
-
-            <p>4. Cardiac CT – evaluates heart structure and blood vessels.</p>
-
-
-            <p>5. Spinal CT – detects bone injuries, disc problems, or spinal tumors.</p>
-
-
-            <p>6. CT Angiography (CTA) – visualizes arteries and veins to find blockages or aneurysms.</p>
-
-
-            <p>7. Musculoskeletal CT – studies bones, joints, and soft tissues.</p>
-
-
-            <p>8. Whole-body CT – used in trauma cases or cancer staging to scan the entire body quickly.</p>
-
+            <p id="areas-text">
+              CT scanning covers several key areas of medical imaging. These include:<br><br>
+              1. Brain CT – used to detect bleeding, tumors, or stroke.<br>
+              2. Chest CT – helps diagnose lung diseases, infections, or cancers.<br>
+              3. Abdominal and Pelvic CT – used to examine organs like the liver, kidneys, and intestines.<br>
+              4. Cardiac CT – evaluates heart structure and blood vessels.<br>
+              5. Spinal CT – detects bone injuries, disc problems, or spinal tumors.<br>
+              6. CT Angiography (CTA) – visualizes arteries and veins to find blockages or aneurysms.<br>
+              7. Musculoskeletal CT – studies bones, joints, and soft tissues.<br>
+              8. Whole-body CT – used in trauma cases or cancer staging to scan the entire body quickly.
+            </p>
           </div>
         </div>
       </div>
     </section>
-
-
-
 
     <!-- Statistics Section -->
     <section id="statistics" class="fade-slide">
       <div class="container">
         <div class="title">
-          <h2>Statistics Department</h2>
+          <h2 id="stats-title">Statistics Department</h2>
         </div>
         <div class="nots-items">
           <img src="./images/Screenshot 2025-11-12 003524.png" alt="Statistics">
-          <img src="./images/Screenshot 2025-11-12 003556.png" alt="Statistics">
           <img src="./images/Screenshot 2025-11-12 003641.png" alt="Statistics">
-
-
         </div>
-        <!--
-        <div class="nots-items">
-        </div>
-        <div class="nots-items">
-        </div>
-
-      </div>-->
+      </div>
     </section>
 
     <!-- Advice Section -->
     <section id="advice" class="fade-slide">
       <div class="container">
         <div class="title">
-          <h2>My Advice to You</h2>
-          <p>To live in peace and safety</p>
+          <h2 id="advice-title">My Advice to You</h2>
+          <p id="advice-subtitle">To live in peace and safety</p>
         </div>
         <div class="about-content">
           <div class="text">
-            <p>Early Detection Saves Lives!</p>
-            <p>Schedule regular brain scans – spot tumors before they grow.</p>
-            <p>⏱️ Early action = more treatment options & better recovery.</p>
-            <p>💡 Take care of your mind – book your scan today!</p>
+            <p id="advice-text1">Early Detection Saves Lives!</p>
+            <p id="advice-text2">Schedule regular brain scans – spot tumors before they grow.</p>
+            <p id="advice-text3">⏱️ Early action = more treatment options & better recovery.</p>
+            <p id="advice-text4">💡 Take care of your mind – book your scan today!</p>
           </div>
           <div class="image">
             <img src="./images/photo_2025-10-23_17-41-25.jpg" alt="Advice">
@@ -188,8 +182,6 @@
         </div>
       </div>
     </section>
-
-
   </main>
 
   <!-- JS for scroll animation -->
@@ -207,89 +199,84 @@
     sections.forEach(section => observer.observe(section));
   </script>
 
-
-
-
-
   <!-- ذيل الصفحة -->
   <footer class="main-footer">
     <div class="footer-container">
       <!-- قسم معلومات التواصل -->
       <div class="footer-section contact-section">
-        <h3 class="section-title">معلومات التواصل</h3>
+        <h3 class="section-title" id="footer-contact-title">Contact Information</h3>
         <div class="contact-info">
           <div class="contact-item">
             <i class="fas fa-map-marker-alt contact-icon"></i>
-            <span class="contact-text"> سوريا دمشق</span>
+            <span class="contact-text" id="footer-address">Damascus, Syria</span>
           </div>
           <div class="contact-item">
             <i class="fas fa-phone contact-icon"></i>
-            <span class="contact-text">+963 12 345 6789</span>
+            <span class="contact-text" id="footer-phone">+963 12 345 6789</span>
           </div>
           <div class="contact-item">
             <i class="fas fa-envelope contact-icon"></i>
-            <span class="contact-text">info@example.com</span>
+            <span class="contact-text" id="footer-email">info@example.com</span>
           </div>
-
         </div>
       </div>
 
       <!-- قسم الروابط السريعة -->
       <div class="footer-section links-section">
-        <h3 class="section-title">روابط سريعة</h3>
+        <h3 class="section-title" id="footer-links-title">Quick Links</h3>
         <ul class="quick-links">
-          <li><a href="#" class="footer-link">الرئيسية</a></li>
-          <li><a href="#" class="footer-link">من نحن</a></li>
-          <li><a href="#" class="footer-link">الخدمات</a></li>
-          <li><a href="#" class="footer-link">المقالات</a></li>
-          <li><a href="#" class="footer-link">اتصل بنا</a></li>
+          <li><a href="#" class="footer-link" id="footer-home">Home</a></li>
+          <li><a href="#" class="footer-link" id="footer-about">About Us</a></li>
+          <li><a href="#" class="footer-link" id="footer-services">Services</a></li>
+          <li><a href="#" class="footer-link" id="footer-articles">Articles</a></li>
+          <li><a href="#" class="footer-link" id="footer-contact">Contact Us</a></li>
         </ul>
       </div>
 
       <!-- قسم وسائل التواصل الاجتماعي -->
       <div class="footer-section social-section">
-        <h3 class="section-title">تابعنا على</h3>
+        <h3 class="section-title" id="footer-social-title">Follow Us</h3>
         <div class="social-links">
-          <a href="#" class="social-link facebook">
+          <a href="https://www.facebook.com/?locale=ar_AR" class="social-link facebook">
             <i class="fab fa-facebook-f"></i>
-            <span>فيسبوك</span>
+            <span id="footer-facebook">Facebook</span>
           </a>
-          <a href="#" class="social-link twitter">
+          <a href="https://x.com/?lang=ar" class="social-link twitter">
             <i class="fab fa-twitter"></i>
-            <span>تويتر</span>
+            <span id="footer-twitter">Twitter</span>
           </a>
-          <a href="#" class="social-link instagram">
+          <a href="https://www.instagram.com" class="social-link instagram">
             <i class="fab fa-instagram"></i>
-            <span>إنستغرام</span>
+            <span id="footer-instagram">Instagram</span>
           </a>
-          <a href="#" class="social-link linkedin">
+          <a href="https://www.linkedin.com/login/ar" class="social-link linkedin">
             <i class="fab fa-linkedin-in"></i>
-            <span>لينكد إن</span>
+            <span id="footer-linkedin">LinkedIn</span>
           </a>
         </div>
       </div>
 
       <!-- قسم النشرة البريدية -->
-      <!-- <div class="footer-section newsletter-section">
-                <h3 class="section-title">النشرة البريدية</h3>
-                <p class="newsletter-desc">اشترك في نشرتنا البريدية لتصلك آخر الأخبار والعروض</p>
-                <form class="newsletter-form">
-                    <input type="email" class="newsletter-input" placeholder="بريدك الإلكتروني" required>
-                    <button type="submit" class="newsletter-btn">اشترك الآن</button>
-                </form>
-            </div> -->
+      <div class="footer-section newsletter-section">
+        <h3 class="section-title" id="footer-newsletter-title">Newsletter</h3>
+        <p class="newsletter-desc" id="footer-newsletter-desc">Subscribe to our newsletter to receive the latest news and offers</p>
+        <form class="newsletter-form">
+          <input type="email" class="newsletter-input" id="newsletter-input" placeholder="Your email address" required>
+          <button type="submit" class="newsletter-btn" id="newsletter-btn">Subscribe Now</button>
+        </form>
+      </div>
     </div>
 
     <!-- الجزء السفلي من الذيل -->
     <div class="footer-bottom">
       <div class="footer-bottom-container">
         <div class="copyright">
-          <p>&copy; 2024 جميع الحقوق محفوظة - اسم موقعك</p>
+          <p id="copyright-text">&copy; 2024 All rights reserved - Virtual Doctor</p>
         </div>
         <div class="footer-legal">
-          <a href="#" class="legal-link">سياسة الخصوصية</a>
-          <a href="#" class="legal-link">شروط الاستخدام</a>
-          <a href="#" class="legal-link">خريطة الموقع</a>
+          <a href="#" class="legal-link" id="footer-privacy">Privacy Policy</a>
+          <a href="#" class="legal-link" id="footer-terms">Terms of Use</a>
+          <a href="#" class="legal-link" id="footer-sitemap">Site Map</a>
         </div>
       </div>
     </div>
@@ -297,7 +284,288 @@
 
   <!-- ربط Font Awesome للأيقونات -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+  
+  <!-- سكريبت الترجمة الكامل -->
+  <script>
+    // كائن الترجمات
+    const translations = {
+      en: {
+        // زر الترجمة
+        translateBtn: "AR / العربية",
+        
+        // النافبار
+        navExperience: "Personal experiences",
+        navTreatment: "Treatment",
+        navLogin: "Log in",
+        
+        // الهيدر
+        heroTitle: "WELCOME TO <span class='primary-text'>VIRTUAL</span> DOCTOR",
+        heroSubtitle: "Your health, our priority",
+        heroBtn: "Interpretation",
+        
+        // القسم 1
+        section1Title: "For You",
+        section1Subtitle: "Ensuring your safety through intelligent medical analysis",
+        introTitle: "🧠 Introduction",
+        introText: "Our AI platform analyzes brain MRI scans with precision, helping detect potential tumors early. We focus on safety, privacy, and accuracy, providing reliable insights for professionals and patients.",
+        
+        // القسم 2
+        section2Title: "DEFINITION",
+        section2Subtitle: "Brain CT scan",
+        definitionText: "A brain CT scan (Computed Tomography) is a medical imaging test that uses X-rays and computer technology to create detailed and precise images of the brain. It is commonly performed to detect brain injuries, bleeding, tumors, or strokes. During the procedure, the patient lies on a table that slides into a circular machine which rotates around the head to capture images from different angles. Sometimes, a contrast dye is injected to highlight blood vessels or specific structures. The scan usually takes about 5–10 minutes and is painless. Afterward, patients can resume normal activities immediately. It provides fast and accurate results, though it involves a small amount of radiation.",
+        
+        // القسم 3
+        section3Title: "What is the importance of a CT scan?",
+        importanceText: "A CT scan is important because it allows doctors to quickly identify serious brain problems such as bleeding, trauma, or tumors, helping them make immediate and life-saving decisions.",
+        
+        // القسم 4
+        section4Title: "Areas of Expertise in CT Scanning",
+        areasText: "CT scanning covers several key areas of medical imaging. These include:<br><br>1. Brain CT – used to detect bleeding, tumors, or stroke.<br>2. Chest CT – helps diagnose lung diseases, infections, or cancers.<br>3. Abdominal and Pelvic CT – used to examine organs like the liver, kidneys, and intestines.<br>4. Cardiac CT – evaluates heart structure and blood vessels.<br>5. Spinal CT – detects bone injuries, disc problems, or spinal tumors.<br>6. CT Angiography (CTA) – visualizes arteries and veins to find blockages or aneurysms.<br>7. Musculoskeletal CT – studies bones, joints, and soft tissues.<br>8. Whole-body CT – used in trauma cases or cancer staging to scan the entire body quickly.",
+        
+        // قسم الإحصائيات
+        statsTitle: "Statistics Department",
+        
+        // قسم النصائح
+        adviceTitle: "My Advice to You",
+        adviceSubtitle: "To live in peace and safety",
+        adviceText1: "Early Detection Saves Lives!",
+        adviceText2: "Schedule regular brain scans – spot tumors before they grow.",
+        adviceText3: "⏱️ Early action = more treatment options & better recovery.",
+        adviceText4: "💡 Take care of your mind – book your scan today!",
+        
+        // الفوتر
+        footerContactTitle: "Contact Information",
+        footerAddress: "Damascus, Syria",
+        footerPhone: "+963 12 345 6789",
+        footerEmail: "info@example.com",
+        
+        footerLinksTitle: "Quick Links",
+        footerHome: "Home",
+        footerAbout: "About Us",
+        footerServices: "Services",
+        footerArticles: "Articles",
+        footerContact: "Contact Us",
+        
+        footerSocialTitle: "Follow Us",
+        footerFacebook: "Facebook",
+        footerTwitter: "Twitter",
+        footerInstagram: "Instagram",
+        footerLinkedin: "LinkedIn",
+        
+        footerNewsletterTitle: "Newsletter",
+        footerNewsletterDesc: "Subscribe to our newsletter to receive the latest news and offers",
+        newsletterPlaceholder: "Your email address",
+        newsletterBtn: "Subscribe Now",
+        
+        copyrightText: "© 2024 All rights reserved - Virtual Doctor",
+        footerPrivacy: "Privacy Policy",
+        footerTerms: "Terms of Use",
+        footerSitemap: "Site Map"
+      },
+      
+      ar: {
+        // زر الترجمة
+        translateBtn: "EN / English",
+        
+        // النافبار
+        navExperience: "التجارب الشخصية",
+        navTreatment: "العلاج",
+        navLogin: "تسجيل الدخول",
+        
+        // الهيدر
+        heroTitle: "مرحباً بكم في <span class='primary-text'>الطبيب</span> الافتراضي",
+        heroSubtitle: "صحتكم، أولويتنا",
+        heroBtn: "التفسير",
+        
+        // القسم 1
+        section1Title: "من أجلك",
+        section1Subtitle: "ضمان سلامتكم من خلال التحليل الطبي الذكي",
+        introTitle: "🧠 مقدمة",
+        introText: "تتناول منصتنا الذكاء الاصطناعي تحليل صور الرنين المغناطيسي للدماغ بدقة، مما يساعد في الكشف المبكر عن الأورام المحتملة. نركز على السلامة والخصوصية والدقة، ونقدم رؤى موثوقة للمهنيين والمرضى.",
+        
+        // القسم 2
+        section2Title: "تعريف",
+        section2Subtitle: "فحص التصوير المقطعي للدماغ",
+        definitionText: "فحص التصوير المقطعي للدماغ هو اختبار تصوير طبي يستخدم الأشعة السينية وتكنولوجيا الكمبيوتر لإنشاء صور مفصلة ودقيقة للدماغ. يتم إجراؤه عادةً للكشف عن إصابات الدماغ، النزيف، الأورام، أو السكتات الدماغية. أثناء الإجراء، يستلقي المريض على طاولة تنزلق داخل جهاز دائري يدور حول الرأس لالتقاط الصور من زوايا مختلفة. في بعض الأحيان، يتم حقن صبغة تباين لتسليط الضوء على الأوعية الدموية أو الهياكل المحددة. يستغرق الفحص عادةً حوالي 5-10 دقائق وهو غير مؤلم. بعد ذلك، يمكن للمرضى استئناف الأنشطة الطبيعية على الفور. يوفر نتائج سريعة ودقيقة، على الرغم من أنه يتضمن كمية صغيرة من الإشعاع.",
+        
+        // القسم 3
+        section3Title: "ما هي أهمية التصوير المقطعي؟",
+        importanceText: "الفحص بالتصوير المقطعي مهم لأنه يسمح للأطباء بتحديد مشاكل الدماغ الخطيرة مثل النزيف أو الصدمات أو الأورام بسرعة، مما يساعدهم على اتخاذ قرارات فورية تنقذ الحياة.",
+        
+        // القسم 4
+        section4Title: "مجالات الخبرة في التصوير المقطعي",
+        areasText: "يغطي التصوير المقطعي عدة مجالات رئيسية في التصوير الطبي. وتشمل هذه:<br><br>1. التصوير المقطعي للدماغ – يستخدم للكشف عن النزيف أو الأورام أو السكتة الدماغية.<br>2. التصوير المقطعي للصدر – يساعد في تشخيص أمراض الرئة أو العدوى أو السرطانات.<br>3. التصوير المقطعي للبطن والحوض – يستخدم لفحص الأعضاء مثل الكبد والكلى والأمعاء.<br>4. التصوير المقطعي للقلب – يقيم بنية القلب والأوعية الدموية.<br>5. التصوير المقطعي للعمود الفقري – يكشف عن إصابات العظام أو مشاكل الأقراص أو أورام العمود الفقري.<br>6. تصوير الأوعية المقطعي (CTA) – يصور الشرايين والأوردة للعثور على الانسدادات أو تمدد الأوعية الدموية.<br>7. التصوير المقطعي للجهاز العضلي الهيكلي – يدرس العظام والمفاصل والأنسجة الرخوة.<br>8. التصوير المقطعي للجسم كاملاً – يستخدم في حالات الصدمة أو تحديد مراحل السرطان لفحص الجسم بالكامل بسرعة.",
+        
+        // قسم الإحصائيات
+        statsTitle: "قسم الإحصائيات",
+        
+        // قسم النصائح
+        adviceTitle: "نصيحتي لك",
+        adviceSubtitle: "لتعيش في سلام وأمان",
+        adviceText1: "الكشف المبكر ينقذ الأرواح!",
+        adviceText2: "قم بجدولة فحوصات الدماغ المنتظمة – اكتشف الأورام قبل أن تكبر.",
+        adviceText3: "⏱️ الإجراء المبكر = المزيد من خيارات العلاج والشفاء الأفضل.",
+        adviceText4: "💡 اعتني بعقلك – احجز فحصك اليوم!",
+        
+        // الفوتر
+        footerContactTitle: "معلومات التواصل",
+        footerAddress: "دمشق، سوريا",
+        footerPhone: "+963 12 345 6789",
+        footerEmail: "info@example.com",
+        
+        footerLinksTitle: "روابط سريعة",
+        footerHome: "الرئيسية",
+        footerAbout: "من نحن",
+        footerServices: "الخدمات",
+        footerArticles: "المقالات",
+        footerContact: "اتصل بنا",
+        
+        footerSocialTitle: "تابعنا على",
+        footerFacebook: "فيسبوك",
+        footerTwitter: "تويتر",
+        footerInstagram: "إنستغرام",
+        footerLinkedin: "لينكد إن",
+        
+        footerNewsletterTitle: "النشرة البريدية",
+        footerNewsletterDesc: "اشترك في نشرتنا البريدية لتصلك آخر الأخبار والعروض",
+        newsletterPlaceholder: "بريدك الإلكتروني",
+        newsletterBtn: "اشترك الآن",
+        
+        copyrightText: "© 2024 جميع الحقوق محفوظة - الطبيب الافتراضي",
+        footerPrivacy: "سياسة الخصوصية",
+        footerTerms: "شروط الاستخدام",
+        footerSitemap: "خريطة الموقع"
+      }
+    };
 
+    // الحالة الحالية للغة
+    let currentLang = 'en';
+
+    // دالة لتطبيق الترجمة
+    function applyTranslation(lang) {
+      const trans = translations[lang];
+      
+      // تحديث زر الترجمة
+      document.getElementById('translateBtn').textContent = trans.translateBtn;
+      
+      // تحديث النصوص
+      document.getElementById('nav-experience').textContent = trans.navExperience;
+      document.getElementById('nav-treatment').textContent = trans.navTreatment;
+      document.getElementById('nav-login').textContent = trans.navLogin;
+      
+      document.getElementById('hero-title').innerHTML = trans.heroTitle;
+      document.getElementById('hero-subtitle').textContent = trans.heroSubtitle;
+      document.getElementById('hero-btn').textContent = trans.heroBtn;
+      
+      document.getElementById('section1-title').textContent = trans.section1Title;
+      document.getElementById('section1-subtitle').textContent = trans.section1Subtitle;
+      document.getElementById('intro-title').textContent = trans.introTitle;
+      document.getElementById('intro-text').textContent = trans.introText;
+      
+      document.getElementById('section2-title').textContent = trans.section2Title;
+      document.getElementById('section2-subtitle').textContent = trans.section2Subtitle;
+      document.getElementById('definition-text').textContent = trans.definitionText;
+      
+      document.getElementById('section3-title').textContent = trans.section3Title;
+      document.getElementById('importance-text').textContent = trans.importanceText;
+      
+      document.getElementById('section4-title').textContent = trans.section4Title;
+      document.getElementById('areas-text').innerHTML = trans.areasText;
+      
+      document.getElementById('stats-title').textContent = trans.statsTitle;
+      
+      document.getElementById('advice-title').textContent = trans.adviceTitle;
+      document.getElementById('advice-subtitle').textContent = trans.adviceSubtitle;
+      document.getElementById('advice-text1').textContent = trans.adviceText1;
+      document.getElementById('advice-text2').textContent = trans.adviceText2;
+      document.getElementById('advice-text3').textContent = trans.adviceText3;
+      document.getElementById('advice-text4').textContent = trans.adviceText4;
+      
+      // تحديث الفوتر
+      document.getElementById('footer-contact-title').textContent = trans.footerContactTitle;
+      document.getElementById('footer-address').textContent = trans.footerAddress;
+      document.getElementById('footer-phone').textContent = trans.footerPhone;
+      document.getElementById('footer-email').textContent = trans.footerEmail;
+      
+      document.getElementById('footer-links-title').textContent = trans.footerLinksTitle;
+      document.getElementById('footer-home').textContent = trans.footerHome;
+      document.getElementById('footer-about').textContent = trans.footerAbout;
+      document.getElementById('footer-services').textContent = trans.footerServices;
+      document.getElementById('footer-articles').textContent = trans.footerArticles;
+      document.getElementById('footer-contact').textContent = trans.footerContact;
+      
+      document.getElementById('footer-social-title').textContent = trans.footerSocialTitle;
+      document.getElementById('footer-facebook').textContent = trans.footerFacebook;
+      document.getElementById('footer-twitter').textContent = trans.footerTwitter;
+      document.getElementById('footer-instagram').textContent = trans.footerInstagram;
+      document.getElementById('footer-linkedin').textContent = trans.footerLinkedin;
+      
+      document.getElementById('footer-newsletter-title').textContent = trans.footerNewsletterTitle;
+      document.getElementById('footer-newsletter-desc').textContent = trans.footerNewsletterDesc;
+      document.getElementById('newsletter-input').placeholder = trans.newsletterPlaceholder;
+      document.getElementById('newsletter-btn').textContent = trans.newsletterBtn;
+      
+      document.getElementById('copyright-text').textContent = trans.copyrightText;
+      document.getElementById('footer-privacy').textContent = trans.footerPrivacy;
+      document.getElementById('footer-terms').textContent = trans.footerTerms;
+      document.getElementById('footer-sitemap').textContent = trans.footerSitemap;
+      
+      // تحديث عنوان الصفحة
+      if (lang === 'ar') {
+        document.title = 'الطبيب الافتراضي';
+      } else {
+        document.title = 'Virtual Doctor';
+      }
+    }
+
+    // دالة لتبديل اللغة
+    function toggleLanguage() {
+      // تبديل اللغة
+      currentLang = currentLang === 'en' ? 'ar' : 'en';
+      
+      // تغيير لغة واتجاه المستند
+      const htmlElement = document.documentElement;
+      htmlElement.setAttribute('lang', currentLang);
+      htmlElement.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
+      
+      // تطبيق الترجمة
+      applyTranslation(currentLang);
+      
+      // حفظ اللغة في localStorage
+      localStorage.setItem('preferredLanguage', currentLang);
+    }
+
+    // تهيئة اللغة عند تحميل الصفحة
+    function initializeLanguage() {
+      // التحقق من اللغة المحفوظة
+      const savedLang = localStorage.getItem('preferredLanguage');
+      
+      if (savedLang && (savedLang === 'en' || savedLang === 'ar')) {
+        currentLang = savedLang;
+      } else {
+        // اكتشاف لغة المتصفح
+        const browserLang = navigator.language || navigator.userLanguage;
+        if (browserLang.startsWith('ar')) {
+          currentLang = 'ar';
+        } else {
+          currentLang = 'en';
+        }
+      }
+      
+      // تطبيق اللغة المختارة
+      const htmlElement = document.documentElement;
+      htmlElement.setAttribute('lang', currentLang);
+      htmlElement.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
+      
+      applyTranslation(currentLang);
+    }
+
+    // إضافة حدث النقر لزر الترجمة
+    document.getElementById('translateBtn').addEventListener('click', toggleLanguage);
+
+    // تهيئة اللغة عند تحميل الصفحة
+    document.addEventListener('DOMContentLoaded', initializeLanguage);
+  </script>
 </body>
 
 </html>

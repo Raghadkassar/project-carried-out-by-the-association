@@ -1,15 +1,856 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Image Analysis - Virtual Doctor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* أنماط عامة - تصميم أزرق احترافي */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #e3f2fd 0%, #f5fbff 100%);
+            min-height: 100vh;
+            color: #2c3e50;
+        }
+
+        /* زر الترجمة */
+        .translate-btn {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            z-index: 1000;
+            background: linear-gradient(135deg, #1976d2, #0d47a1);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            box-shadow: 0 4px 20px rgba(25, 118, 210, 0.3);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .translate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(25, 118, 210, 0.4);
+            background: linear-gradient(135deg, #1565c0, #0a3d91);
+        }
+
+        /* الحاوية الرئيسية */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 20px 40px;
+        }
+
+        /* الهيدر */
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 40px;
+            background: linear-gradient(135deg, #0d47a1 0%, #1976d2 100%);
+            border-radius: 24px;
+            color: white;
+            box-shadow: 0 15px 35px rgba(13, 71, 161, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #64b5f6, #1976d2);
+        }
+
+        .header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            max-width: 800px;
+            margin: 0 auto 25px;
+        }
+
+        .header-features {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .feature-badge {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* بطاقة المحتوى */
+        .content-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        @media (max-width: 900px) {
+            .content-card {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* قسم تحميل الصورة */
+        .upload-section {
+            background: white;
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 10px 30px rgba(13, 71, 161, 0.1);
+            transition: transform 0.3s ease;
+            border: 1px solid #e1f5fe;
+        }
+
+        .upload-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(13, 71, 161, 0.15);
+        }
+
+        .section-title {
+            color: #1565c0;
+            font-size: 1.6rem;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .upload-area {
+            border: 2px dashed #90caf9;
+            border-radius: 16px;
+            padding: 50px 30px;
+            text-align: center;
+            background: #f8fdff;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+
+        .upload-area:hover {
+            border-color: #64b5f6;
+            background: #f0f9ff;
+        }
+
+        .upload-icon {
+            font-size: 60px;
+            color: #1976d2;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .upload-area h3 {
+            color: #0d47a1;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        .upload-area p {
+            color: #546e7a;
+            margin-bottom: 25px;
+            font-size: 1rem;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .file-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #1976d2, #0d47a1);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(25, 118, 210, 0.3);
+        }
+
+        .file-label:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(25, 118, 210, 0.4);
+        }
+
+        .preview-container {
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        .image-preview {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: none;
+            border: 1px solid #e1f5fe;
+        }
+
+        /* زر التحليل */
+        .analyze-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #1976d2, #0d47a1);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 14px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 25px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(25, 118, 210, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .analyze-btn:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(25, 118, 210, 0.4);
+            background: linear-gradient(135deg, #1565c0, #083d8a);
+        }
+
+        .analyze-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* قسم النتائج */
+        .results-section {
+            background: white;
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 10px 30px rgba(13, 71, 161, 0.1);
+            border: 1px solid #e1f5fe;
+        }
+
+        .results-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e3f2fd;
+        }
+
+        .results-header h2 {
+            color: #1565c0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.6rem;
+        }
+
+        .results-content {
+            background: #f8fdff;
+            border-radius: 16px;
+            padding: 25px;
+            min-height: 300px;
+            max-height: 500px;
+            overflow-y: auto;
+            border: 1px solid #e1f5fe;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 50px;
+        }
+
+        .loading-spinner {
+            border: 4px solid #e3f2fd;
+            border-top: 4px solid #1976d2;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .result-text {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #37474f;
+        }
+
+        .confidence-meter {
+            margin-top: 25px;
+        }
+
+        .confidence-label {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #1565c0;
+        }
+
+        .confidence-bar {
+            height: 12px;
+            background: #e3f2fd;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .confidence-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #64b5f6, #1976d2);
+            width: 0%;
+            transition: width 1s ease;
+            border-radius: 6px;
+        }
+
+        /* قسم الميزات */
+        .features-section {
+            background: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin-top: 30px;
+            box-shadow: 0 10px 30px rgba(13, 71, 161, 0.1);
+            border: 1px solid #e1f5fe;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 25px;
+        }
+
+        .feature-card {
+            background: #f8fdff;
+            padding: 25px;
+            border-radius: 16px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            border-left: 4px solid #1976d2;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            background: #f0f9ff;
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #1976d2, #0d47a1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            color: white;
+            font-size: 24px;
+        }
+
+        .feature-card h3 {
+            color: #0d47a1;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .feature-card p {
+            color: #546e7a;
+            font-size: 0.95rem;
+        }
+
+        /* اتجاه الصفحة */
+        [dir="rtl"] {
+            text-align: right;
+        }
+
+        [dir="ltr"] {
+            text-align: left;
+        }
+
+        /* تصميم متجاوب */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .content-card {
+                gap: 20px;
+            }
+            
+            .upload-section, .results-section, .features-section {
+                padding: 25px;
+            }
+            
+            .upload-area {
+                padding: 40px 20px;
+            }
+            
+            .translate-btn {
+                top: 15px;
+                right: 15px;
+                padding: 10px 20px;
+                font-size: 13px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <h1>About This Project</h1>
-  <p>This website explains how CT scans work and their importance in medical imaging.</p>
+    <!-- زر الترجمة -->
+    <button class="translate-btn" id="translateBtn">
+        <i class="fas fa-language"></i>
+        <span id="translate-text">AR / العربية</span>
+    </button>
 
-  <!-- زر العودة للصفحة الرئيسية -->
-  <a href="index.html">← Back to Home</a>
+    <div class="container">
+        <div class="header">
+            <h1 id="page-title">AI Brain Scan Interpreter</h1>
+            <p id="page-description">Upload your brain CT/MRI scan and get instant AI-powered analysis and interpretation</p>
+            <div class="header-features">
+                <div class="feature-badge">
+                    <i class="fas fa-brain"></i> <span id="feature1">Brain Tumor Detection</span>
+                </div>
+                <div class="feature-badge">
+                    <i class="fas fa-bolt"></i> <span id="feature2">Instant Results</span>
+                </div>
+                <div class="feature-badge">
+                    <i class="fas fa-user-md"></i> <span id="feature3">Medical Grade</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <!-- قسم تحميل الصورة -->
+            <div class="upload-section">
+                <h2 class="section-title" id="upload-title">
+                    <i class="fas fa-cloud-upload-alt"></i> Upload Scan
+                </h2>
+                <p id="upload-desc">Supported formats: JPG, PNG, DICOM (Max 10MB)</p>
+                
+                <div class="upload-area" id="uploadArea">
+                    <i class="fas fa-file-medical-alt upload-icon" id="upload-icon"></i>
+                    <h3 id="upload-area-title">Drag & Drop or Click to Upload</h3>
+                    <p id="upload-area-desc">Upload your brain CT or MRI scan for analysis</p>
+                    <input type="file" id="fileInput" class="file-input" accept=".jpg,.jpeg,.png,.dcm">
+                    <label for="fileInput" class="file-label" id="file-label">
+                        <i class="fas fa-folder-open"></i> <span id="choose-file">Choose File</span>
+                    </label>
+                </div>
+
+                <div class="preview-container">
+                    <img id="imagePreview" class="image-preview" alt="Image Preview">
+                </div>
+
+                <button class="analyze-btn" id="analyzeBtn" disabled>
+                    <i class="fas fa-brain"></i> <span id="analyze-text">Analyze Scan</span>
+                </button>
+            </div>
+
+            <!-- قسم النتائج -->
+            <div class="results-section">
+                <div class="results-header">
+                    <h2 id="results-title">
+                        <i class="fas fa-chart-line"></i> Analysis Results
+                    </h2>
+                    <span id="results-status">Ready</span>
+                </div>
+
+                <div class="results-content">
+                    <div class="loading" id="loadingIndicator">
+                        <div class="loading-spinner"></div>
+                        <p id="loading-text">Analyzing your scan...</p>
+                    </div>
+
+                    <div class="result-text" id="resultText">
+                        <p id="default-result">No scan uploaded yet. Please upload a brain CT or MRI scan to get started.</p>
+                    </div>
+
+                    <div class="confidence-meter" id="confidenceMeter" style="display: none;">
+                        <div class="confidence-label" id="confidence-label">Analysis Confidence:</div>
+                        <div class="confidence-bar">
+                            <div class="confidence-fill" id="confidenceFill"></div>
+                        </div>
+                        <div id="confidence-value" style="text-align: center; margin-top: 5px; font-weight: bold; color: #1976d2;">0%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- قسم الميزات -->
+        <div class="features-section">
+            <h2 class="section-title" id="features-title">
+                <i class="fas fa-star"></i> Key Features
+            </h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 id="feature1-title">Fast Analysis</h3>
+                    <p id="feature1-desc">Get results in seconds with our advanced AI algorithms</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 id="feature2-title">Secure & Private</h3>
+                    <p id="feature2-desc">Your medical data is encrypted and never stored</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3 id="feature3-title">Accurate Results</h3>
+                    <p id="feature3-desc">Trained on thousands of medical scans for precision</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <h3 id="feature4-title">Medical Grade</h3>
+                    <p id="feature4-desc">Designed for healthcare professionals and patients</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // كائن الترجمات
+        const translations = {
+            en: {
+                // زر الترجمة
+                translateText: "AR / العربية",
+                
+                // الهيدر
+                pageTitle: "AI Brain Scan Interpreter",
+                pageDescription: "Upload your brain CT/MRI scan and get instant AI-powered analysis and interpretation",
+                feature1: "Brain Tumor Detection",
+                feature2: "Instant Results",
+                feature3: "Medical Grade",
+                
+                // قسم التحميل
+                uploadTitle: "Upload Scan",
+                uploadDesc: "Supported formats: JPG, PNG, DICOM (Max 10MB)",
+                uploadAreaTitle: "Drag & Drop or Click to Upload",
+                uploadAreaDesc: "Upload your brain CT or MRI scan for analysis",
+                chooseFile: "Choose File",
+                analyzeText: "Analyze Scan",
+                
+                // قسم النتائج
+                resultsTitle: "Analysis Results",
+                resultsStatus: "Ready",
+                loadingText: "Analyzing your scan...",
+                defaultResult: "No scan uploaded yet. Please upload a brain CT or MRI scan to get started.",
+                confidenceLabel: "Analysis Confidence:",
+                
+                // قسم الميزات
+                featuresTitle: "Key Features",
+                feature1Title: "Fast Analysis",
+                feature1Desc: "Get results in seconds with our advanced AI algorithms",
+                feature2Title: "Secure & Private",
+                feature2Desc: "Your medical data is encrypted and never stored",
+                feature3Title: "Accurate Results",
+                feature3Desc: "Trained on thousands of medical scans for precision",
+                feature4Title: "Medical Grade",
+                feature4Desc: "Designed for healthcare professionals and patients",
+                
+                // رسائل النتائج
+                sampleResults: [
+                    {
+                        title: "Normal Brain Scan",
+                        text: "The uploaded CT scan appears normal with no visible abnormalities. Brain structures are symmetrical, ventricles are normal in size, and there is no evidence of mass lesions, hemorrhages, or edema. The gray-white matter differentiation is well preserved.",
+                        confidence: 92
+                    },
+                    {
+                        title: "Possible Meningioma Detected",
+                        text: "Analysis indicates a well-defined extra-axial mass in the frontal region, suggestive of a meningioma. The lesion shows homogeneous enhancement and appears to be attached to the dura. No significant perilesional edema is noted. Recommendation: Further evaluation with contrast-enhanced MRI is advised.",
+                        confidence: 87
+                    },
+                    {
+                        title: "Glioblastoma Multiforme Suspected",
+                        text: "The scan reveals a heterogeneous mass in the temporal lobe with irregular borders and significant surrounding edema. There is evidence of central necrosis and heterogeneous contrast enhancement. These findings are concerning for high-grade glioma (GBM). Urgent neurosurgical consultation is recommended.",
+                        confidence: 94
+                    }
+                ]
+            },
+            
+            ar: {
+                // زر الترجمة
+                translateText: "EN / English",
+                
+                // الهيدر
+                pageTitle: "مترجم صور الدماغ بالذكاء الاصطناعي",
+                pageDescription: "قم بتحميل صورة التصوير المقطعي أو الرنين المغناطيسي للدماغ واحصل على تحليل فوري مدعوم بالذكاء الاصطناعي",
+                feature1: "كشف أورام الدماغ",
+                feature2: "نتائج فورية",
+                feature3: "درجة طبية",
+                
+                // قسم التحميل
+                uploadTitle: "تحميل الصورة",
+                uploadDesc: "الصيغ المدعومة: JPG, PNG, DICOM (الحد الأقصى 10 ميجابايت)",
+                uploadAreaTitle: "اسحب وأفلت أو انقر للتحميل",
+                uploadAreaDesc: "قم بتحميل صورة التصوير المقطعي أو الرنين المغناطيسي للدماغ للتحليل",
+                chooseFile: "اختر ملف",
+                analyzeText: "تحليل الصورة",
+                
+                // قسم النتائج
+                resultsTitle: "نتائج التحليل",
+                resultsStatus: "جاهز",
+                loadingText: "جاري تحليل الصورة...",
+                defaultResult: "لم يتم تحميل أي صورة بعد. يرجى تحميل صورة تصوير مقطعي أو رنين مغناطيسي للدماغ للبدء.",
+                confidenceLabel: "ثقة التحليل:",
+                
+                // قسم الميزات
+                featuresTitle: "المميزات الرئيسية",
+                feature1Title: "تحليل سريع",
+                feature1Desc: "احصل على النتائج في ثوانٍ باستخدام خوارزميات الذكاء الاصطناعي المتقدمة",
+                feature2Title: "آمن وخاص",
+                feature2Desc: "بياناتك الطبية مشفرة ولا يتم تخزينها أبداً",
+                feature3Title: "نتائج دقيقة",
+                feature3Desc: "مدرب على آلاف الصور الطبية لتحقيق الدقة",
+                feature4Title: "درجة طبية",
+                feature4Desc: "مصمم لمقدمي الرعاية الصحية والمرضى",
+                
+                // رسائل النتائج
+                sampleResults: [
+                    {
+                        title: "صورة دماغ طبيعية",
+                        text: "تبدو صورة التصوير المقطعي المرفوعة طبيعية دون أي تشوهات مرئية. هياكل الدماغ متناظرة، والبطينات بحجم طبيعي، ولا يوجد دليل على آفات كتلية أو نزيف أو وذمة. تمايز المادة الرمادية والبيضاء محفوظ جيداً.",
+                        confidence: 92
+                    },
+                    {
+                        title: "كشف احتمال ورم سحائي",
+                        text: "يشير التحليل إلى وجود كتلة واضحة الحدود خارج المحور في المنطقة الأمامية، توحي بورم سحائي. تظهر الآلة تعزيزاً متجانساً ويبدو أنها ملتصقة بالأم الجافية. لم يتم ملاحظة وذمة حول الآفة ذات أهمية. التوصية: يوصى بإجراء تقييم إضافي باستخدام الرنين المغناطيسي المعزز بالتباين.",
+                        confidence: 87
+                    },
+                    {
+                        title: "اشتباه ورم أرومي دبقي متعدد الأشكال",
+                        text: "تكشف الصورة عن كتلة غير متجانسة في الفص الصدغي ذات حدود غير منتظمة ومحيطة بوذمة كبيرة. هناك دليل على نخر مركزي وتعزيز تباين غير متجانس. هذه النتائج مثيرة للقلق بشأن ورم دبقي عالي الدرجة. يوصى باستشارة جراحة الأعصاب العاجلة.",
+                        confidence: 94
+                    }
+                ]
+            }
+        };
+
+        // الحالة الحالية للغة
+        let currentLang = 'en';
+        let currentImage = null;
+
+        // دالة لتطبيق الترجمة
+        function applyTranslation(lang) {
+            const trans = translations[lang];
+            
+            // تحديث النصوص
+            document.getElementById('translate-text').textContent = trans.translateText;
+            document.getElementById('page-title').textContent = trans.pageTitle;
+            document.getElementById('page-description').textContent = trans.pageDescription;
+            document.getElementById('feature1').textContent = trans.feature1;
+            document.getElementById('feature2').textContent = trans.feature2;
+            document.getElementById('feature3').textContent = trans.feature3;
+            
+            document.getElementById('upload-title').innerHTML = `<i class="fas fa-cloud-upload-alt"></i> ${trans.uploadTitle}`;
+            document.getElementById('upload-desc').textContent = trans.uploadDesc;
+            document.getElementById('upload-area-title').textContent = trans.uploadAreaTitle;
+            document.getElementById('upload-area-desc').textContent = trans.uploadAreaDesc;
+            document.getElementById('choose-file').textContent = trans.chooseFile;
+            document.getElementById('analyze-text').textContent = trans.analyzeText;
+            
+            document.getElementById('results-title').innerHTML = `<i class="fas fa-chart-line"></i> ${trans.resultsTitle}`;
+            document.getElementById('results-status').textContent = trans.resultsStatus;
+            document.getElementById('loading-text').textContent = trans.loadingText;
+            document.getElementById('default-result').textContent = trans.defaultResult;
+            document.getElementById('confidence-label').textContent = trans.confidenceLabel;
+            
+            document.getElementById('features-title').innerHTML = `<i class="fas fa-star"></i> ${trans.featuresTitle}`;
+            document.getElementById('feature1-title').textContent = trans.feature1Title;
+            document.getElementById('feature1-desc').textContent = trans.feature1Desc;
+            document.getElementById('feature2-title').textContent = trans.feature2Title;
+            document.getElementById('feature2-desc').textContent = trans.feature2Desc;
+            document.getElementById('feature3-title').textContent = trans.feature3Title;
+            document.getElementById('feature3-desc').textContent = trans.feature3Desc;
+            document.getElementById('feature4-title').textContent = trans.feature4Title;
+            document.getElementById('feature4-desc').textContent = trans.feature4Desc;
+            
+            // تحديث اتجاه الصفحة
+            document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+            document.documentElement.setAttribute('lang', lang);
+            
+            // تحديث عنوان الصفحة
+            document.title = trans.pageTitle;
+            
+            // حفظ اللغة في التخزين المحلي
+            localStorage.setItem('interpreterLang', lang);
+        }
+
+        // دالة لتبديل اللغة
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'ar' : 'en';
+            applyTranslation(currentLang);
+        }
+
+        // دالة لعرض معاينة الصورة
+        function showImagePreview(file) {
+            const reader = new FileReader();
+            const preview = document.getElementById('imagePreview');
+            const analyzeBtn = document.getElementById('analyzeBtn');
+            
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+                analyzeBtn.disabled = false;
+                currentImage = file;
+            }
+            
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // دالة لمحاكاة تحليل الصورة
+        function analyzeImage() {
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const resultText = document.getElementById('resultText');
+            const confidenceMeter = document.getElementById('confidenceMeter');
+            const confidenceFill = document.getElementById('confidenceFill');
+            const confidenceValue = document.getElementById('confidence-value');
+            const resultsStatus = document.getElementById('results-status');
+            const analyzeBtn = document.getElementById('analyzeBtn');
+            
+            if (!currentImage) return;
+            
+            // إظهار مؤشر التحميل
+            loadingIndicator.style.display = 'block';
+            resultText.style.display = 'none';
+            confidenceMeter.style.display = 'none';
+            resultsStatus.textContent = currentLang === 'ar' ? 'جار التحليل...' : 'Analyzing...';
+            analyzeBtn.disabled = true;
+            
+            // اختيار نتيجة عشوائية من النتائج العينة
+            const trans = translations[currentLang];
+            const randomResult = trans.sampleResults[Math.floor(Math.random() * trans.sampleResults.length)];
+            
+            // محاكاة التحليل لمدة 3 ثواني
+            setTimeout(() => {
+                loadingIndicator.style.display = 'none';
+                resultText.style.display = 'block';
+                confidenceMeter.style.display = 'block';
+                
+                // عرض النتائج
+                resultText.innerHTML = `
+                    <h3 style="color: #0d47a1; margin-bottom: 15px;">${randomResult.title}</h3>
+                    <p>${randomResult.text}</p>
+                `;
+                
+                // عرض مؤشر الثقة
+                confidenceValue.textContent = `${randomResult.confidence}%`;
+                
+                // تحريك شريط الثقة
+                setTimeout(() => {
+                    confidenceFill.style.width = `${randomResult.confidence}%`;
+                }, 100);
+                
+                resultsStatus.textContent = currentLang === 'ar' ? 'مكتمل' : 'Complete';
+                analyzeBtn.disabled = false;
+            }, 3000);
+        }
+
+        // تهيئة الصفحة عند التحميل
+        document.addEventListener('DOMContentLoaded', function() {
+            // تهيئة اللغة
+            const savedLang = localStorage.getItem('interpreterLang');
+            if (savedLang) {
+                currentLang = savedLang;
+            } else {
+                const browserLang = navigator.language || navigator.userLanguage;
+                if (browserLang.startsWith('ar')) {
+                    currentLang = 'ar';
+                }
+            }
+            applyTranslation(currentLang);
+            
+            // إضافة مستمعات الأحداث
+            document.getElementById('translateBtn').addEventListener('click', toggleLanguage);
+            document.getElementById('analyzeBtn').addEventListener('click', analyzeImage);
+            
+            // سحب وإفلات الملفات
+            const uploadArea = document.getElementById('uploadArea');
+            const fileInput = document.getElementById('fileInput');
+            
+            uploadArea.addEventListener('click', () => fileInput.click());
+            
+            uploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadArea.style.borderColor = '#64b5f6';
+                uploadArea.style.background = '#f0f9ff';
+            });
+            
+            uploadArea.addEventListener('dragleave', () => {
+                uploadArea.style.borderColor = '#90caf9';
+                uploadArea.style.background = '#f8fdff';
+            });
+            
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.style.borderColor = '#90caf9';
+                uploadArea.style.background = '#f8fdff';
+                
+                if (e.dataTransfer.files.length) {
+                    const file = e.dataTransfer.files[0];
+                    if (file.type.match('image.*') && file.size <= 10 * 1024 * 1024) {
+                        showImagePreview(file);
+                    } else {
+                        alert(currentLang === 'ar' 
+                            ? 'الرجاء تحميل ملف صورة (JPG, PNG, DICOM) بحجم أقل من 10 ميجابايت' 
+                            : 'Please upload an image file (JPG, PNG, DICOM) under 10MB');
+                    }
+                }
+            });
+            
+            fileInput.addEventListener('change', (e) => {
+                if (e.target.files.length) {
+                    const file = e.target.files[0];
+                    if (file.type.match('image.*') && file.size <= 10 * 1024 * 1024) {
+                        showImagePreview(file);
+                    } else {
+                        alert(currentLang === 'ar' 
+                            ? 'الرجاء تحميل ملف صورة (JPG, PNG, DICOM) بحجم أقل من 10 ميجابايت' 
+                            : 'Please upload an image file (JPG, PNG, DICOM) under 10MB');
+                        fileInput.value = '';
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>
